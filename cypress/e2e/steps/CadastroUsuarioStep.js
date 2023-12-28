@@ -1,25 +1,32 @@
 import { Given, When, Then} from "@badeball/cypress-cucumber-preprocessor"
+import RestRequests from "../../support/RestRequests.js"
 
-Given ('que criamos um novo usuario', () => {
-    cy.gerarNomeAleatorio().then(nome => {
-        cy.gerarEmailAleatorio(nome).then(email => {
-            cy.gerarSenhaAleatoria().then(senha => {
+const restRequests = new RestRequests();
+const registerAccountAPI = 'https://barrigarest.wcaquino.me/usuarios';
 
-                const bodyUsuario = {
-                    'nome': nome,
-                    'email': email,
-                    'senha': senha,
-                    'redirecionar': false,
-                  };
+Given ('que criamos um novo usuario e salvamos em um json', () => {
+     cy.gerarNomeAleatorio().then(nome => {
+         cy.gerarEmailAleatorio(nome).then(email => {
+             cy.gerarSenhaAleatoria().then(senha => {
+
+                 const bodyUsuario = {
+                     'nome': nome,
+                     'email': email,
+                     'senha': senha,
+                     'redirecionar': "false",
+                   };
             
-                cy.writeFile('cypress/fixtures/cadastroUsuariosBodyRequests/criarUsuarioBodyRequest.json', bodyUsuario);
-            });
-        });
-    });
+                 cy.writeFile('cypress/fixtures/EndPointCadastroUsuarios/requests/criarUsuarioBodyRequest.json', bodyUsuario);
+             });
+         });
+     });
 });
 
-When ('realizamos a chamada da api de cadastro com o json do usuario criado', () => {
+ When ('realizado o request da api de cadastro passando o json do usuario criado', () => {
 
-    
+    let requestJsonCriarUsuario = require('../../fixtures/EndPointCadastroUsuarios/requests/criarUsuarioBodyRequest.json');
 
-})
+    restRequests.doPostRequestWithBody(JSON.stringify(requestJsonCriarUsuario), registerAccountAPI).then((response) => {
+        cy.writeFile('cypress/fixtures/EndPointCadastroUsuarios/responses/criarUsuarioJsonResponse.json', JSON.stringify(response));
+    });
+ })

@@ -1,5 +1,5 @@
 Cypress.Commands.add('gerarNomeAleatorio', () => {
-    let listaNomes = require('../fixtures/listaNomes.json').nomes;
+    let listaNomes = require('../fixtures/EndPointCadastroUsuarios/listaNomes.json').nomes;
     return listaNomes[Math.floor(Math.random() * listaNomes.length)]; 
 });
 
