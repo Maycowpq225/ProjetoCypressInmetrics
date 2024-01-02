@@ -15,7 +15,8 @@
   },
   "dependencies": {
     "chai": "^4.3.10",
-    "cypress": "^12.1.0"
+    "cypress": "^12.1.0",
+    "fs": "^0.0.1-security"
   },
   "devDependencies": {
     "@badeball/cypress-cucumber-preprocessor": "^18.0.6",

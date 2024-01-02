@@ -1,6 +1,7 @@
 Cypress.Commands.add('gerarNomeAleatorio', () => {
-    let listaNomes = require('../fixtures/EndPointCadastroUsuarios/listaNomes.json').nomes;
-    return listaNomes[Math.floor(Math.random() * listaNomes.length)]; 
+    cy.fixture('EndPointCadastroUsuarios/requests/listaNomes.json').then((json) => {
+        return json.nomes[Math.floor(Math.random() * json.nomes.length)]; 
+      });
 });
 
 Cypress.Commands.add('gerarEmailAleatorio', (nome) => {

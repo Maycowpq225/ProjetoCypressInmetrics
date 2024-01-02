@@ -23,10 +23,10 @@ Given ('que criamos um novo usuario e salvamos em um json', () => {
 });
 
  When ('realizado o request da api de cadastro passando o json do usuario criado', () => {
-
-    let requestJsonCriarUsuario = require('../../fixtures/EndPointCadastroUsuarios/requests/criarUsuarioBodyRequest.json');
-
-    restRequests.doPostRequestWithBody(JSON.stringify(requestJsonCriarUsuario), registerAccountAPI).then((response) => {
-        cy.writeFile('cypress/fixtures/EndPointCadastroUsuarios/responses/criarUsuarioJsonResponse.json', JSON.stringify(response));
-    });
+    cy.readFile("cypress/fixtures/EndPointCadastroUsuarios/requests/criarUsuarioBodyRequest.json").then(requestJsonCriarUsuario => {
+        restRequests.doPostRequestWithBody(JSON.stringify(requestJsonCriarUsuario), registerAccountAPI).then((response) => {
+            cy.writeFile('cypress/fixtures/EndPointCadastroUsuarios/responses/criarUsuarioJsonResponse.json', JSON.stringify(response));
+        });
+    })
  })
+
